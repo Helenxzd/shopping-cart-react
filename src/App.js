@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import ProductCardList from "./components/ProductCardList";
+
 const App = () => {
   const [data, setData] = useState({});
   const products = Object.values(data);
@@ -13,9 +15,15 @@ const App = () => {
   }, []);
 
   return (
-    <ul>
-      {products.map(product => <li key={product.sku}>{product.title}</li>)}
-    </ul>
+      // <ProductCardList products={products}/>
+      <React.Fragment>
+        <ProductCardList products={products}/>
+      </React.Fragment>
+      // <React.Fragment>
+      //
+      //   {products.map(product => <ProductCard product={product} key={product.sku}/>)}
+      //
+      // </React.Fragment>
   );
 };
 
