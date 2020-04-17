@@ -9,10 +9,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
+
+
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
         height: 700,
+        padding: 5,
     },
     media: {
         height: 500,
@@ -27,8 +30,18 @@ const useStyles = makeStyles({
     },
 });
 
-export default function ProductCard({product}) {
+export default function ProductCard({product, setCartOpen, cartList, setCartList}) {
     const classes = useStyles();
+
+    const sizes = { S: 'S', M: 'M', L: 'L', XL: 'XL'};
+
+    const handleAddCart = () => {
+        setCartOpen(true);
+        let tempCart = cartList;
+        tempCart.push(product);
+        setCartList(tempCart);
+    }
+
     return (
         <Card className={classes.root}>
             <CardActionArea>
@@ -47,23 +60,12 @@ export default function ProductCard({product}) {
             </CardActionArea>
             <CardActions>
                 <Grid container justify="space-around">
-                    <Button color="black" variant="outlined" className={classes.sizeButton}>
-                        S
-                    </Button>
-                    <Button color="black" variant="outlined" className={classes.sizeButton}>
-                        M
-                    </Button>
-                    <Button color="black" variant="outlined" className={classes.sizeButton}>
-                        L
-                    </Button>
-                    <Button color="black" variant="outlined" className={classes.sizeButton}>
-                        XL
-                    </Button>
+                    {Object.values(sizes).map(size => <Button color="black" variant="outlined" className={classes.sizeButton}>{size}</Button>)}
                 </Grid>
             </CardActions>
             <CardActions>
                 <Grid container justify="center">
-                    <Button size="large" variant="contained" color="primary">
+                    <Button size="large" variant="contained" color="primary" onClick={handleAddCart}>
                         Add to cart
                     </Button>
                 </Grid>
