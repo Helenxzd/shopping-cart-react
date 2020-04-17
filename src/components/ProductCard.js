@@ -38,7 +38,17 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
     const handleAddCart = () => {
         setCartOpen(true);
         let tempCart = cartList;
-        tempCart.push(product);
+        let count;
+        for(count = 0; count < tempCart.length; count++){
+            if (tempCart[count].product.sku === product.sku) {
+                tempCart[count].qty += 1;
+                console.log(tempCart);
+                break;
+            }
+        }
+        if(count===tempCart.length){
+            tempCart.push({product : product, qty : 1});
+        }
         setCartList(tempCart);
     }
 
