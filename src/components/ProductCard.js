@@ -42,7 +42,6 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
         for(count = 0; count < tempCart.length; count++){
             if (tempCart[count].product.sku === product.sku) {
                 tempCart[count].qty += 1;
-                console.log(tempCart);
                 break;
             }
         }
@@ -70,7 +69,7 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
             </CardActionArea>
             <CardActions>
                 <Grid container justify="space-around">
-                    {Object.values(sizes).map(size => <Button color="black" variant="outlined" className={classes.sizeButton}>{size}</Button>)}
+                    {Object.values(sizes).map(size => <Button color="default" variant="outlined" className={classes.sizeButton}>{size}</Button>)}
                 </Grid>
             </CardActions>
             <CardActions>
