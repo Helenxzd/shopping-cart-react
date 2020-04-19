@@ -1,13 +1,12 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+
 import Typography from '@material-ui/core/Typography';
+
+import CartList from "./CartList";
 
 const useStyles = makeStyles({
     list: {
@@ -49,35 +48,13 @@ export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList}
         }
         return sum;
     };
-
     return (
         <React.Fragment>
             <Button onClick={() => setCartOpen(true)}>Cart</Button>
             <Drawer anchor='right' open={cartOpen} onClose={setCartClose}>
                 <div className={classes.list}>
                     <Button onClick={() => setCartOpen(false)}>close</Button>
-                    <Container maxWidth="lg">
-                        {cartList.map(item =>
-                            <Card className={classes.root}>
-                                <CardMedia
-                                    className={classes.image}
-                                    image={"data/products/"+item.product.sku+"_2.jpg"}
-                                    height="50"
-                                />
-                                <CardContent className={classes.details}>
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                        {item.product.title}
-                                    </Typography>
-                                    <Typography variant="h6" color="textSecondary">
-                                        $ {item.product.price}
-                                    </Typography>
-                                    <Typography variant="h6" color="textSecondary">
-                                        quantity: {item.qty}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                         )}
-                    </Container>
+                    <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen}/>
                     <div className={classes.subtotal}>
                         <Typography variant="h6" color="textSecondary">
                             SUBTOTAL: {totalAmount(cartList)}

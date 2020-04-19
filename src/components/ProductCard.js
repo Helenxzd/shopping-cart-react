@@ -37,7 +37,7 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
 
     const handleAddCart = () => {
         setCartOpen(true);
-        let tempCart = cartList;
+        let tempCart = cartList.slice(0);
         let count;
         for(count = 0; count < tempCart.length; count++){
             if (tempCart[count].product.sku === product.sku) {
@@ -49,7 +49,7 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
             tempCart.push({product : product, qty : 1});
         }
         setCartList(tempCart);
-    }
+    };
 
     return (
         <Card className={classes.root}>
@@ -69,7 +69,7 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
             </CardActionArea>
             <CardActions>
                 <Grid container justify="space-around">
-                    {Object.values(sizes).map(size => <Button color="default" variant="outlined" className={classes.sizeButton}>{size}</Button>)}
+                    {Object.values(sizes).map(size => <Button color="default" variant="outlined" className={classes.sizeButton} key={size}>{size}</Button>)}
                 </Grid>
             </CardActions>
             <CardActions>
