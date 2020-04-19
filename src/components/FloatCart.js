@@ -12,19 +12,6 @@ const useStyles = makeStyles({
     list: {
         width: 350,
     },
-    root:{
-        display: 'flex',
-    },
-    details:{
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    image:{
-        padding: 5,
-        flex: '1 0 auto',
-        maxWidth: 40,
-        margin: '5px 5px',
-    },
     subtotal:{
         margin: '15px 15px'
 

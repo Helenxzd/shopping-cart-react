@@ -13,9 +13,6 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 
 const useStyles = makeStyles({
-    list: {
-        width: 350,
-    },
     root:{
         display: 'flex',
     },
@@ -29,9 +26,8 @@ const useStyles = makeStyles({
         maxWidth: 40,
         margin: '5px 5px',
     },
-    subtotal:{
-        margin: '15px 15px'
-
+    clearButton:{
+        marginLeft: 'auto'
     }
 });
 
@@ -90,17 +86,17 @@ export default function CartList({cartList, setCartList, setCartOpen}) {
                         <Typography variant="h6" color="textSecondary">
                             $ {item.product.price}
                         </Typography>
-                        <Typography variant="h6" color="textSecondary">
-                            <IconButton aria-label="remove" onClick={() => rmvQty(item.product.sku)}>
+                        <Typography variant="subtitle2" color="textSecondary">
+                            <IconButton aria-label="remove" size={"small"} onClick={() => rmvQty(item.product.sku)}>
                                 <RemoveCircleOutlineIcon />
                             </IconButton>
                             quantity: {item.qty}
-                            <IconButton aria-label="add" onClick={() => addQty(item.product.sku)}>
+                            <IconButton aria-label="add" size={"small"} onClick={() => addQty(item.product.sku)}>
                                 <AddCircleOutlineIcon />
                             </IconButton>
                         </Typography>
                     </CardContent>
-                    <IconButton aria-label="clear" onClick={() => handleDeleteItem(item.product.sku)}>
+                    <IconButton aria-label="clear" size={"small"} className={classes.clearButton} onClick={() => handleDeleteItem(item.product.sku)}>
                         <ClearIcon />
                     </IconButton>
                 </Card>
