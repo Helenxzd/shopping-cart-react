@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -30,25 +30,41 @@ const useStyles = makeStyles({
     },
 });
 
-export default function ProductCard({product, setCartOpen, cartList, setCartList}) {
+export default function ProductCard({product, setCartOpen, cartList, setCartList, inventory}) {
     const classes = useStyles();
 
     const sizes = { S: 'S', M: 'M', L: 'L', XL: 'XL'};
+
+    const isSizeIn = (size) =>{
+        return inventory[product.sku][size] > 0;
+    };
+
+    const [click, setClick] = useState(false);
+    const [productSize, setProductSize] = useState('S');
+
+    const handleSizeClick = (size) => {
+        setClick(true);
+        setProductSize(size);
+        // console.log(productSize);
+    };
 
     const handleAddCart = () => {
         setCartOpen(true);
         let tempCart = cartList.slice(0);
         let count;
         for(count = 0; count < tempCart.length; count++){
-            if (tempCart[count].product.sku === product.sku) {
+            if (tempCart[count].product.sku === product.sku && tempCart[count].size === productSize) {
                 tempCart[count].qty += 1;
+                inventory[product.sku][productSize] -= 1;
                 break;
             }
         }
         if(count===tempCart.length){
-            tempCart.push({product : product, qty : 1});
+            tempCart.push({product : product, qty : 1, size : productSize});
+            inventory[product.sku][productSize] -= 1;
         }
         setCartList(tempCart);
+        setClick(false);
     };
 
     return (
@@ -69,12 +85,15 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
             </CardActionArea>
             <CardActions>
                 <Grid container justify="space-around">
-                    {Object.values(sizes).map(size => <Button color="default" variant="outlined" className={classes.sizeButton} key={size}>{size}</Button>)}
+                    {Object.values(sizes).map(size => <Button color="default" variant="outlined"
+                                                              className={classes.sizeButton} disabled={!isSizeIn(size)}
+                                                              onClick={() => handleSizeClick(size)}
+                                                              key={size}>{size}</Button>)}
                 </Grid>
             </CardActions>
             <CardActions>
                 <Grid container justify="center">
-                    <Button size="large" variant="contained" color="primary" onClick={handleAddCart}>
+                    <Button size="large" variant="contained" color="primary" onClick={handleAddCart} disabled={!click}>
                         Add to cart
                     </Button>
                 </Grid>

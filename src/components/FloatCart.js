@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList}) {
+export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList, inventory}) {
     const classes = useStyles();
 
     const setCartClose = (event) => {
@@ -41,7 +41,7 @@ export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList}
             <Drawer anchor='right' open={cartOpen} onClose={setCartClose}>
                 <div className={classes.list}>
                     <Button onClick={() => setCartOpen(false)}>close</Button>
-                    <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen}/>
+                    <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen} inventory={inventory}/>
                     <div className={classes.subtotal}>
                         <Typography variant="h6" color="textSecondary">
                             SUBTOTAL: {totalAmount(cartList)}
