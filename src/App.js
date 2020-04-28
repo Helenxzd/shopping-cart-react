@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import firebase from 'firebase/app';
+import firebase from "./shared/firebase";
 import 'firebase/database';
 import 'firebase/auth';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
@@ -11,18 +11,7 @@ import Typography from "@material-ui/core/Typography";
 
 import ProductCardList from "./components/ProductCardList";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAWiV-UOI6Pca_cEdAy7siffGsKhRp6XDA",
-  authDomain: "shopping-cart-react-70b60.firebaseapp.com",
-  databaseURL: "https://shopping-cart-react-70b60.firebaseio.com",
-  projectId: "shopping-cart-react-70b60",
-  storageBucket: "shopping-cart-react-70b60.appspot.com",
-  messagingSenderId: "747299287859",
-  appId: "1:747299287859:web:1d0e4238bba20288990446",
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database().ref();
+const db = firebase.database().ref('/inventory');
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -46,7 +35,7 @@ const Welcome = ({ user }) => {
       <div style={{ width: '100%' }}>
         <Box bgcolor="text.primary" color="background.paper" display="flex">
           <Box p={1} flexGrow={1} alignItems="center">
-            <Typography>Welcome, {user.displayName}</Typography>
+            <Typography variant="h6">Welcome, {user.displayName}</Typography>
           </Box>
           <Box p={1}>
             <Button variant="contained" onClick={() => firebase.auth().signOut()}>
@@ -99,6 +88,8 @@ const App = () => {
         setInv(snap.val());
         setData(json);
       };
+
+
       db.on('value', handleData, error => alert(error));
 
       return () => { db.off('value', handleData); };
@@ -108,7 +99,7 @@ const App = () => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(setUser);
-  }, []);
+  }, [user]);
 
   // useEffect(() => {
   //     const handleData = snap => {
@@ -119,13 +110,15 @@ const App = () => {
   // }, []);
 
 
-
-
   return (
       // <ProductCardList products={products}/>
       <React.Fragment>
         <Banner user={ user } />
-        <ProductCardList products={products} inventory={inventory}/>
+        <div>
+          {
+            <ProductCardList products={products} inventory={inventory} uid={user? user.uid : null}/>
+          }
+        </div>
       </React.Fragment>
       // <React.Fragment>
       //

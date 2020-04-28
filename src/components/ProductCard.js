@@ -30,6 +30,7 @@ const useStyles = makeStyles({
     },
 });
 
+
 export default function ProductCard({product, setCartOpen, cartList, setCartList, inventory}) {
     const classes = useStyles();
 

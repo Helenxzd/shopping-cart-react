@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+
+import firebase from "../shared/firebase";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -7,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import CartList from "./CartList";
+
+const db = firebase.database().ref();
 
 const useStyles = makeStyles({
     list: {
@@ -18,8 +22,9 @@ const useStyles = makeStyles({
     }
 });
 
-export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList, inventory}) {
+export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList, inventory, uid}) {
     const classes = useStyles();
+
 
     const setCartClose = (event) => {
         if (event.type === 'Tab') {
@@ -41,12 +46,13 @@ export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList,
             <Drawer anchor='right' open={cartOpen} onClose={setCartClose}>
                 <div className={classes.list}>
                     <Button onClick={() => setCartOpen(false)}>close</Button>
-                    <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen} inventory={inventory}/>
+                    <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen} inventory={inventory} uid={uid}/>
                     <div className={classes.subtotal}>
                         <Typography variant="h6" color="textSecondary">
                             SUBTOTAL: {totalAmount(cartList)}
                         </Typography>
                     </div>
+                    <Button>update</Button>
                 </div>
             </Drawer>
         </React.Fragment>

@@ -12,6 +12,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 
+
 const useStyles = makeStyles({
     root:{
         display: 'flex',
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CartList({cartList, setCartList, setCartOpen, inventory}) {
+export default function CartList({cartList, setCartList, setCartOpen, inventory, uid}) {
     const classes = useStyles();
 
     const handleDeleteItem = (deleteSku, deleteSize) => {
