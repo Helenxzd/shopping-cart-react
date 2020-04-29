@@ -69,7 +69,7 @@ const App = () => {
     ],
     callbacks: {
       signInSuccessWithAuthResult: (result)=>{
-        db.child('cart').child(result.user.uid).set(cartList);
+        db.child('cart').child(result.user.uid).update(cartList);
         return false;
       }
     }

@@ -1,12 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import firebase from "../shared/firebase";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import CartList from "./CartList";
 
@@ -18,11 +21,10 @@ const useStyles = makeStyles({
     },
     subtotal:{
         margin: '15px 15px'
-
-    }
+    },
 });
 
-export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList, inventory, uid}) {
+export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList, inventory}) {
     const classes = useStyles();
 
 
@@ -40,19 +42,29 @@ export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList,
         }
         return sum;
     };
+
+    const handleCheckOut = () => {
+        db.child('inventory').update(inventory);
+        window.confirm("You have checked out your products!")
+    };
+
     return (
         <React.Fragment>
-            <Button onClick={() => setCartOpen(true)}>Cart</Button>
+            <Grid container justify="flex-end">
+                <IconButton size="large" onClick={() => setCartOpen(true)} color="primary" aria-label="shopping cart">
+                    <ShoppingCartIcon />
+                </IconButton>
+            </Grid>
             <Drawer anchor='right' open={cartOpen} onClose={setCartClose}>
                 <div className={classes.list}>
                     <Button onClick={() => setCartOpen(false)}>close</Button>
-                    <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen} inventory={inventory} uid={uid}/>
+                    <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen} inventory={inventory}/>
                     <div className={classes.subtotal}>
                         <Typography variant="h6" color="textSecondary">
                             SUBTOTAL: {totalAmount(cartList)}
                         </Typography>
                     </div>
-                    <Button>update</Button>
+                    <Grid container justify="center"><Button variant='outlined' onClick={handleCheckOut}>Check Out</Button></Grid>
                 </div>
             </Drawer>
         </React.Fragment>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import FloatCart from "./FloatCart";
@@ -59,7 +59,7 @@ export default function ProductCardList({cartList, setCart, products, inventory,
 
     return (
         <React.Fragment>
-            <FloatCart cartOpen={cartOpen} setCartOpen={setCartOpen} cartList={cartList} setCartList={setCartList} inventory={inventory} uid={uid}/>
+            <FloatCart cartOpen={cartOpen} setCartOpen={setCartOpen} cartList={cartList} setCartList={setCartList} inventory={inventory}/>
             <Container fixed>
                 <Selector/>
                 <Grid container spacing={2} direction="row">

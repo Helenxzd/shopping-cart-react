@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CartList({cartList, setCartList, setCartOpen, inventory, uid}) {
+export default function CartList({cartList, setCartList, setCartOpen, inventory}) {
     const classes = useStyles();
 
     const handleDeleteItem = (deleteSku, deleteSize) => {
