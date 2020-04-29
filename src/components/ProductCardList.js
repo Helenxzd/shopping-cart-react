@@ -10,13 +10,18 @@ import firebase from "../shared/firebase";
 const db = firebase.database().ref();
 
 
-export default function ProductCardList({products, inventory, uid}) {
+export default function ProductCardList({cartList, setCart, products, inventory, uid}) {
     const [cartOpen, setCartOpen] = useState(false);
-    const [cartList, setCart] = useState([]);
+    // const [cartList, setCart] = useState([]);
 
     const setCartList = (data) => {
-        setCart(data);
-        db.child('cart').child(uid).set(data);
+        if(uid) {
+            setCart(data);
+            db.child('cart').child(uid).set(data);
+        }
+        else{
+            setCart(data);
+        }
     };
 
     // console.log(userData[user]);
