@@ -22,6 +22,25 @@ const useStyles = makeStyles({
     subtotal:{
         margin: '15px 15px'
     },
+    button: {
+        width: 64, height: 64,
+        padding: 0,
+    },
+    icon: {
+        width: 64, height: 64,
+    },
+    tooltip: {
+        marginLeft:7
+    },
+    banner: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        fontsize: 40,
+        backgroundColor: '#001f33',
+        textAlign: 'center',
+        color: '#FFF',
+    }
 });
 
 export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList, inventory}) {
@@ -48,14 +67,31 @@ export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList,
         window.confirm("You have checked out your products!")
     };
 
+    const styles = {
+        button: {
+            width: 50, height: 50,
+            padding: 0,
+        },
+        icon: {
+            fontsize: 200
+        },
+        tooltip: {
+            marginLeft: 7
+        }
+    };
+
     return (
         <React.Fragment>
-            <Grid container justify="flex-end">
-                <IconButton size="large" onClick={() => setCartOpen(true)} color="primary" aria-label="shopping cart">
-                    <ShoppingCartIcon />
-                </IconButton>
+            <Grid container justify="space-between">
+                <Typography style={{marginLeft:10, paddingTop: 5, fontSize: 20}}>Pick Something you like and enjoy shopping!</Typography>
+                <Typography style={{paddingLeft: 10, marginRight: 10, fontSize: 20, backgroundColor: '#d1e0e0', borderRadius: '20%'}}>Cart
+                    <IconButton style={styles.button} iconStyle={styles.icon} tooltipStyles={styles.tooltip} onClick={() => setCartOpen(true)} aria-label="shopping cart">
+                        <ShoppingCartIcon />
+                    </IconButton>
+                </Typography>
             </Grid>
             <Drawer anchor='right' open={cartOpen} onClose={setCartClose}>
+                <div className={classes.banner}>My Shopping Cart</div>
                 <div className={classes.list}>
                     <Button onClick={() => setCartOpen(false)}>close</Button>
                     <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen} inventory={inventory}/>

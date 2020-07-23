@@ -79,10 +79,16 @@ const App = () => {
 
   const SignIn = () => {
     return(
-        <StyledFirebaseAuth
-            uiConfig={uiConfig}
-            firebaseAuth={firebase.auth()}
-        />
+        <div style={{ width: '100%'}}>
+          <Box bgcolor="text.primary" color="background.paper" display="flex">
+            <Box flexGrow={1} alignItems="center">
+              <StyledFirebaseAuth
+                uiConfig={uiConfig}
+                firebaseAuth={firebase.auth()}
+              />
+            </Box>
+          </Box>
+        </div>
     );
   };
 
