@@ -15,12 +15,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SimpleSelect() {
+export default function Selector({products, setProducts}) {
     const classes = useStyles();
     const [rank, setRank] = React.useState('');
 
     const handleChange = (event) => {
         setRank(event.target.value);
+        if (event.target.value === 'Lowest to highest') {
+            products.sort((a,b) => a.price - b.price);
+            setProducts([...products]);
+        }
+        if (event.target.value === 'Highest to lowest') {
+            products.sort((a,b) => b.price - a.price);
+            setProducts([...products]);
+        }
+
     };
 
     return (

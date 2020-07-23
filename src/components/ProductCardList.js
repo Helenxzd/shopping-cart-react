@@ -10,8 +10,9 @@ import firebase from "../shared/firebase";
 const db = firebase.database().ref();
 
 
-export default function ProductCardList({cartList, setCart, products, inventory, uid}) {
+export default function ProductCardList({cartList, setCart, products, setProducts, inventory, uid}) {
     const [cartOpen, setCartOpen] = useState(false);
+    setProducts(products)
     // const [cartList, setCart] = useState([]);
 
     const setCartList = (data) => {
@@ -57,18 +58,22 @@ export default function ProductCardList({cartList, setCart, products, inventory,
     //     }
     // }
 
+
+
     return (
         <React.Fragment>
             <FloatCart cartOpen={cartOpen} setCartOpen={setCartOpen} cartList={cartList} setCartList={setCartList} inventory={inventory}/>
             <Container fixed>
-                <Selector/>
+                <Selector products={products} setProducts={setProducts}/>
                 <Grid container spacing={2} direction="row">
-                    {products.map(product =>
+                    {
+                        products.map(product =>
                         <Grid item xs={3} key={product.sku + product.size}>
                             <ProductCard product={product} setCartOpen={setCartOpen} cartList={cartList} setCartList={setCartList} inventory={inventory}/>
                         </Grid>)
                     }
                 </Grid>
+
             </Container>
         </React.Fragment>
     );

@@ -16,7 +16,8 @@ const db = firebase.database().ref();
 
 const App = () => {
   const [data, setData] = useState({});
-  const products = Object.values(data);
+  const [products, setProducts] = useState(Object.values(data));
+
 
   const [inv, setInv] = useState({});
   const inventory = inv;
@@ -49,6 +50,7 @@ const App = () => {
       const handleData = snap => {
         setInv(snap.val());
         setData(json);
+        setProducts(Object.values(json))
       };
 
       db.child('inventory').on('value', handleData, error => alert(error));
@@ -127,7 +129,7 @@ const App = () => {
         <Banner user={ user } cartList={cartList} />
         <div>
           {
-            <ProductCardList cartList={cartList} setCart={setCart} products={products} inventory={inventory} uid={user? user.uid : null}/>
+            <ProductCardList cartList={cartList} setCart={setCart} products={products} setProducts={setProducts} inventory={inventory} uid={user? user.uid : null}/>
           }
         </div>
       </React.Fragment>
