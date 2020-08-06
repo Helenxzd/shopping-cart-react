@@ -80,7 +80,7 @@ export default function ProductCard({product, setCartOpen, cartList, setCartList
                         {product.title}
                     </Typography>
                     <Typography variant="h6" color="textSecondary" component="p">
-                        $ {product.price}
+                        $ {product.price.toFixed(2)}
                     </Typography>
                 </CardContent>
             </CardActionArea>

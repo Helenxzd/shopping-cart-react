@@ -97,7 +97,7 @@ export default function FloatCart({cartOpen, setCartOpen, cartList, setCartList,
                     <CartList cartList={cartList} setCartList={setCartList} setCartOpen={setCartOpen} inventory={inventory}/>
                     <div className={classes.subtotal}>
                         <Typography variant="h6" color="textSecondary">
-                            SUBTOTAL: {totalAmount(cartList)}
+                            SUBTOTAL: {totalAmount(cartList).toFixed(2)}
                         </Typography>
                     </div>
                     <Grid container justify="center"><Button variant='outlined' onClick={handleCheckOut}>Check Out</Button></Grid>
